@@ -3,53 +3,107 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Seithi – Daily news from Tamil Nadu, India and the world</title>
+<title>Seithi – Tamil Nadu, India and world news</title>
+<meta name="description" content="Headlines from Tamil Nadu, India and the world, plus cricket, football, Formula 1 and MotoGP. Updated every hour.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:wght@600;700&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#eef2f6;--card:#fff;--ink:#14213d;--mute:#5b6a82;--line:#d5dde8;--accent:#0f766e;--mark:#f2a900;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#0e1522;--card:#17203120;--ink:#e8edf5;--mute:#93a2bb;--line:#263349;--accent:#4fd1c5;color-scheme:dark}}
+:root{--bg:#f4f5f7;--card:#fff;--ink:#101828;--mute:#566174;--line:#e0e4ea;--brand:#0b2545;--on-brand:#fff;--live:#e11d48;--link:#0b2545;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0c121c;--card:#151d2b;--ink:#e9eef6;--mute:#9aa8bf;--line:#26324a;--brand:#08162b;--link:#9cc2ff;color-scheme:dark}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Mukta,system-ui,sans-serif}
+html{scroll-padding-top:60px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Inter,"Noto Sans Tamil",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
-header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:2px solid var(--ink);padding:10px 16px}
-.bar{max-width:1100px;margin:auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.brand{font:800 28px 'Bricolage Grotesque',sans-serif;letter-spacing:-.02em}
-.brand i{display:inline-block;width:12px;height:12px;background:var(--mark);border-radius:50%;margin-right:6px}
-.stamp{color:var(--mute);font-size:14px;margin-left:auto}
-.search{flex:1 1 200px;max-width:320px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
-nav{max-width:1100px;margin:10px auto 0;display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
-nav button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 14px;border-radius:999px;font:600 15px Mukta,sans-serif;cursor:pointer}
-nav button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-main{max-width:1100px;margin:22px auto;padding:0 16px;display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
-.lead{grid-row:span 3;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--mark);padding:22px;border-radius:6px;align-self:start}
-.lead h2{font:800 clamp(26px,4vw,38px)/1.12 'Bricolage Grotesque',sans-serif;margin:6px 0 12px;letter-spacing:-.02em}
-.item{background:var(--card);border:1px solid var(--line);padding:14px 16px;border-radius:6px}
-.item h3{font:600 18px/1.3 'Bricolage Grotesque',sans-serif;margin:2px 0 6px}
-.meta{color:var(--mute);font-size:14px}
-.item p,.lead p{margin:0;color:var(--mute)}
-.lead p{font-size:18px;color:var(--ink)}
-a:hover h2,a:hover h3{text-decoration:underline;text-decoration-color:var(--mark);text-decoration-thickness:3px}
-.note{grid-column:1/-1;background:var(--card);border:1px solid var(--line);padding:20px;border-radius:6px}
-code{background:var(--bg);padding:2px 6px;border-radius:4px}
-footer{max-width:1100px;margin:30px auto;padding:0 16px;color:var(--mute);font-size:14px}
-@media(max-width:760px){main{grid-template-columns:1fr}.lead{grid-row:auto}.stamp{margin-left:0}}
+:focus-visible{outline:3px solid #f5b301;outline-offset:2px}
+.serif{font-family:"Source Serif 4","Noto Serif Tamil",Georgia,serif}
+.wrap{max-width:1180px;margin:auto;padding:0 20px}
+
+/* masthead */
+.top{background:var(--brand);color:var(--on-brand)}
+.top .wrap{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px}
+.brand{font:700 34px/1 "Source Serif 4",Georgia,serif;letter-spacing:-.01em}
+.tag{font-size:13px;opacity:.75;margin-top:4px}
+.today{margin-left:auto;text-align:right;font-size:13px;opacity:.9}
+.live{display:inline-flex;align-items:center;gap:6px}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--live)}
+.search{width:230px;padding:9px 12px;border:1px solid #ffffff33;border-radius:6px;background:#ffffff14;color:#fff;font:inherit;font-size:14px}
+.search::placeholder{color:#ffffffaa}
+
+/* section nav */
+.nav{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav button{flex:none;border:0;background:none;color:var(--mute);font:500 15px Inter,"Noto Sans Tamil",sans-serif;padding:14px 14px 11px;border-bottom:3px solid transparent;cursor:pointer}
+.nav button:hover{color:var(--ink)}
+.nav button[aria-selected=true]{color:var(--ink);font-weight:600;border-bottom-color:var(--c,var(--ink))}
+
+/* layout */
+main.wrap{padding-top:26px;padding-bottom:40px}
+.home{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:36px}
+h1,h2,h3{margin:0}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
+.chip{font-weight:600;color:var(--c);}
+.sep{opacity:.5}
+
+/* stories */
+.story{display:block}
+.story h3{font:700 19px/1.3 "Source Serif 4","Noto Serif Tamil",Georgia,serif;margin:5px 0 0}
+.story p{margin:6px 0 0;color:var(--mute);font-size:15px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.story:hover h3,.story:hover h2{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.hero{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.lead h2{font:700 clamp(28px,3.6vw,40px)/1.15 "Source Serif 4","Noto Serif Tamil",Georgia,serif;letter-spacing:-.01em;margin:8px 0 12px}
+.lead p{font-size:18px;line-height:1.55;color:var(--mute);margin:0;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.side{display:flex;flex-direction:column}
+.side .story{padding:0 0 16px;margin:0 0 16px;border-bottom:1px solid var(--line)}
+.side .story:last-child{border:0;margin:0;padding:0}
+
+.block{margin-top:30px}
+.bh{display:flex;align-items:center;justify-content:space-between;border-top:3px solid var(--c);padding-top:10px;margin-bottom:16px}
+.bh h2{font:700 21px "Source Serif 4","Noto Serif Tamil",Georgia,serif}
+.more{border:0;background:none;color:var(--link);font:600 14px Inter,sans-serif;cursor:pointer;padding:4px}
+.more:hover{text-decoration:underline}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px}
+.sports{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 28px}
+.sports .story{padding:12px 0;border-bottom:1px solid var(--line)}
+.sports .story:last-child{border:0}
+.sports h3{font-size:17px}
+
+/* latest rail */
+.rail{align-self:start;position:sticky;top:64px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 18px 10px}
+.rail h2{font:700 18px "Source Serif 4",Georgia,serif;padding:14px 0 6px}
+.rail .story{padding:12px 0;border-top:1px solid var(--line)}
+.rail .story h3{font:600 15px/1.35 Inter,"Noto Sans Tamil",sans-serif;margin-top:3px}
+
+/* section & search pages */
+.page-h{display:flex;align-items:baseline;gap:14px;border-top:3px solid var(--c);padding-top:12px;margin-bottom:22px}
+.page-h h1{font:700 32px "Source Serif 4",Georgia,serif}
+.page-h span{color:var(--mute);font-size:14px}
+.list .story{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
+.list .story:hover{border-color:var(--c)}
+.msg{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:24px}
+code{background:var(--bg);padding:2px 6px;border-radius:4px;font-size:14px}
+footer{border-top:1px solid var(--line);color:var(--mute);font-size:13px;padding:22px 0 40px}
+
+@media(max-width:900px){.home{grid-template-columns:1fr}.rail{position:static}.hero{grid-template-columns:1fr}}
+@media(max-width:620px){.grid,.sports{grid-template-columns:1fr}.search{width:100%}.today{margin-left:0;text-align:left}.brand{font-size:30px}.wrap{padding:0 16px}}
 </style>
 </head>
 <body>
-<header>
-  <div class="bar">
-    <div class="brand"><i></i>Seithi</div>
+<header class="top">
+  <div class="wrap">
+    <div><div class="brand">Seithi</div><div class="tag">Tamil Nadu, India and the world</div></div>
+    <div class="today"><div id="date"></div><div class="live" id="stamp">Loading</div></div>
     <input class="search" id="q" type="search" placeholder="Search headlines" aria-label="Search headlines">
-    <div class="stamp" id="stamp">Loading news…</div>
   </div>
-  <nav id="tabs" role="tablist" aria-label="News sections"></nav>
 </header>
-<main id="list"></main>
-<footer>Headlines and short summaries are gathered automatically every hour from public news feeds. Each story links to its original publisher, who owns the full article.</footer>
+<nav class="nav" aria-label="Sections"><div class="wrap" id="tabs" role="tablist"></div></nav>
+<main class="wrap" id="view"></main>
+<footer><div class="wrap">Headlines and short summaries are collected automatically every hour from public news feeds. Each story opens on the original publisher's site, which owns the full article.</div></footer>
 <script>
-let DATA = null, current = "All";
+const COLORS = {"Tamil Nadu":"#0f766e","India":"#d9691a","World":"#2457d6","Technology":"#7c3aed","Cricket":"#15803d","Football":"#b4232a","Formula 1":"#d11f2f","MotoGP":"#c2410c"};
+const SPORTS = ["Cricket","Football","Formula 1","MotoGP"];
+const col = n => COLORS[n] || "#475569";
+let DATA = null, current = "Home";
 const $ = id => document.getElementById(id);
 
 function ago(iso){
@@ -59,63 +113,114 @@ function ago(iso){
   if(m < 1440) return Math.round(m / 60) + " h ago";
   return Math.round(m / 1440) + " d ago";
 }
-function el(tag, cls, text){
-  const e = document.createElement(tag);
-  if(cls) e.className = cls;
-  if(text) e.textContent = text;
-  return e;
-}
-function card(it, isLead){
-  const a = el("a", isLead ? "lead" : "item");
-  a.href = it.link; a.target = "_blank"; a.rel = "noopener noreferrer";
-  a.append(el("div", "meta", [it.section, it.source, ago(it.time)].filter(Boolean).join(" · ")));
-  a.append(el(isLead ? "h2" : "h3", "", it.title));
-  if(it.summary && it.summary.toLowerCase() !== it.title.toLowerCase()) a.append(el("p", "", it.summary));
+function el(tag, cls, text){ const e = document.createElement(tag); if(cls) e.className = cls; if(text) e.textContent = text; return e; }
+
+function story(it, o = {}){
+  const a = el("a", "story"); a.href = it.link; a.target = "_blank"; a.rel = "noopener noreferrer";
+  a.style.setProperty("--c", col(it.section));
+  const m = el("div", "meta");
+  if(o.chip) m.append(el("span", "chip", it.section), el("span", "sep", "|"));
+  if(it.source) m.append(el("span", "", it.source));
+  if(it.source && it.time) m.append(el("span", "sep", "|"));
+  if(it.time) m.append(el("span", "", ago(it.time)));
+  a.append(m, el(o.big ? "h2" : "h3", "", it.title));
+  if(o.summary && it.summary && it.summary.toLowerCase() !== it.title.toLowerCase()) a.append(el("p", "", it.summary));
   return a;
 }
+function tag(items, name){ return items.map(x => ({...x, section: name})); }
+function all(){ return Object.entries(DATA.sections).flatMap(([n, a]) => tag(a, n)).sort((a, b) => (b.time || "").localeCompare(a.time || "")); }
+function head(name, withMore){
+  const h = el("div", "bh"); h.style.setProperty("--c", col(name));
+  h.append(el("h2", "", name));
+  if(withMore){ const b = el("button", "more", "See all " + name); b.onclick = () => go(name); h.append(b); }
+  return h;
+}
+
+function home(){
+  const S = DATA.sections, used = new Set(), root = el("div", "home"), left = el("div");
+  const pool = ["Tamil Nadu","India","World"].flatMap(n => tag((S[n] || []).slice(0, 3), n))
+    .sort((a, b) => (b.time || "").localeCompare(a.time || ""));
+  if(pool.length){
+    const hero = el("section", "hero"), lead = el("div", "lead"), side = el("div", "side");
+    const l = pool[0]; used.add(l.link);
+    const a = story(l, {big: true, summary: true, chip: true}); lead.append(a);
+    pool.slice(1, 5).forEach(x => { used.add(x.link); side.append(story(x, {chip: true})); });
+    hero.append(lead, side); left.append(hero);
+  }
+  Object.keys(S).filter(n => !SPORTS.includes(n)).forEach(n => {
+    const items = tag(S[n], n).filter(x => !used.has(x.link)).slice(0, 4);
+    if(!items.length) return;
+    const b = el("section", "block"), g = el("div", "grid");
+    items.forEach(x => g.append(story(x, {summary: true})));
+    b.append(head(n, true), g); left.append(b);
+  });
+  const sp = SPORTS.filter(n => S[n] && S[n].length);
+  if(sp.length){
+    const b = el("section", "block"), g = el("div", "sports");
+    const h = el("div", "bh"); h.style.setProperty("--c", "#101828"); h.append(el("h2", "", "Sports"));
+    sp.forEach(n => {
+      const c = el("div"); c.append(head(n, true));
+      tag(S[n].slice(0, 3), n).forEach(x => c.append(story(x)));
+      g.append(c);
+    });
+    b.append(h, g); left.append(b);
+  }
+  const rail = el("aside", "rail"); rail.append(el("h2", "", "Latest"));
+  all().slice(0, 10).forEach(x => rail.append(story(x, {chip: true})));
+  root.append(left, rail); return root;
+}
+function listView(title, items, c){
+  const v = el("div");
+  const h = el("div", "page-h"); h.style.setProperty("--c", c);
+  h.append(el("h1", "", title), el("span", "", items.length + " stories"));
+  v.append(h);
+  if(!items.length){ v.append(el("div", "msg", "No stories match. Try another section or a different search.")); return v; }
+  const l = el("div", "grid list");
+  items.forEach(x => l.append(story(x, {summary: true, chip: title === "Search results"})));
+  v.append(l); return v;
+}
 function render(){
-  const list = $("list"); list.replaceChildren();
+  const view = $("view"); view.replaceChildren();
   if(!DATA) return;
   const term = $("q").value.trim().toLowerCase();
-  let items = [];
-  for(const [name, arr] of Object.entries(DATA.sections))
-    if(current === "All" || current === name) arr.forEach(x => items.push({...x, section: name}));
-  if(current === "All"){ // mix sections: newest first
-    items.sort((a, b) => (b.time || "").localeCompare(a.time || ""));
+  if(term){
+    const r = all().filter(x => (x.title + " " + (x.summary || "")).toLowerCase().includes(term));
+    view.append(listView("Search results", r, "#101828")); return;
   }
-  if(term) items = items.filter(x => (x.title + " " + x.summary).toLowerCase().includes(term));
-  if(!items.length){ list.append(el("div", "note", "No stories match. Try another section or clear the search.")); return; }
-  items.forEach((it, i) => list.append(card(it, i === 0)));
+  if(current === "Home") view.append(home());
+  else view.append(listView(current, tag(DATA.sections[current] || [], current), col(current)));
 }
-function buildTabs(){
-  const tabs = $("tabs"); tabs.replaceChildren();
-  ["All", ...Object.keys(DATA.sections)].forEach(name => {
-    const b = el("button", "", name);
-    b.setAttribute("role", "tab"); b.setAttribute("aria-selected", name === current);
-    b.onclick = () => { current = name; buildTabs(); render(); };
-    tabs.append(b);
+function tabs(){
+  const t = $("tabs"); t.replaceChildren();
+  ["Home", ...Object.keys(DATA.sections)].forEach(n => {
+    const b = el("button", "", n); b.setAttribute("role", "tab"); b.setAttribute("aria-selected", n === current);
+    b.style.setProperty("--c", n === "Home" ? "#101828" : col(n));
+    b.onclick = () => go(n); t.append(b);
   });
 }
+function go(n){ current = n; $("q").value = ""; tabs(); render(); window.scrollTo({top: 0}); }
+
 async function load(){
+  $("date").textContent = new Date().toLocaleDateString("en-IN", {weekday: "long", day: "numeric", month: "long", year: "numeric"});
   try{
     const r = await fetch("news.json?t=" + Date.now());
     if(!r.ok) throw new Error(r.status);
     DATA = await r.json();
     $("stamp").textContent = "Updated " + ago(DATA.updated);
-    buildTabs(); render();
+    tabs(); render();
   }catch(err){
-    const n = el("div", "note");
-    n.append("News file not found yet. If you opened this page by double-clicking it, start a local server instead: ");
+    const n = el("div", "msg");
+    n.append("News file not found yet. If you opened this page by double-clicking it, run ");
     n.append(el("code", "", "python -m http.server"));
-    n.append(" then visit localhost:8000. Run ");
+    n.append(" and visit localhost:8000. Run ");
     n.append(el("code", "", "python fetch_news.py"));
     n.append(" once to create news.json.");
-    $("list").replaceChildren(n); $("stamp").textContent = "No data";
+    $("view").replaceChildren(n); $("stamp").textContent = "No data";
   }
 }
 $("q").addEventListener("input", render);
 load();
-setInterval(load, 10 * 60 * 1000); // re-read news.json every 10 minutes
+setInterval(load, 10 * 60 * 1000);
 </script>
 </body>
 </html>
