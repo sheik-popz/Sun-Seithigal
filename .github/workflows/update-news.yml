@@ -1,7 +1,7 @@
 name: Update news hourly
 on:
   schedule:
-    - cron: "0 * * * *"   # every hour
+    - cron: "17,47 * * * *"   # every hour
   workflow_dispatch:       # lets you run it manually from the Actions tab
 permissions:
   contents: write
