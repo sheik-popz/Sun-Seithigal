@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seithi – Daily news from Tamil Nadu, India and the world</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f6;--card:#fff;--ink:#14213d;--mute:#5b6a82;--line:#d5dde8;--accent:#0f766e;--mark:#f2a900;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1522;--card:#17203120;--ink:#e8edf5;--mute:#93a2bb;--line:#263349;--accent:#4fd1c5;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Mukta,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:2px solid var(--ink);padding:10px 16px}
+.bar{max-width:1100px;margin:auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font:800 28px 'Bricolage Grotesque',sans-serif;letter-spacing:-.02em}
+.brand i{display:inline-block;width:12px;height:12px;background:var(--mark);border-radius:50%;margin-right:6px}
+.stamp{color:var(--mute);font-size:14px;margin-left:auto}
+.search{flex:1 1 200px;max-width:320px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+nav{max-width:1100px;margin:10px auto 0;display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+nav button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 14px;border-radius:999px;font:600 15px Mukta,sans-serif;cursor:pointer}
+nav button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+main{max-width:1100px;margin:22px auto;padding:0 16px;display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
+.lead{grid-row:span 3;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--mark);padding:22px;border-radius:6px;align-self:start}
+.lead h2{font:800 clamp(26px,4vw,38px)/1.12 'Bricolage Grotesque',sans-serif;margin:6px 0 12px;letter-spacing:-.02em}
+.item{background:var(--card);border:1px solid var(--line);padding:14px 16px;border-radius:6px}
+.item h3{font:600 18px/1.3 'Bricolage Grotesque',sans-serif;margin:2px 0 6px}
+.meta{color:var(--mute);font-size:14px}
+.item p,.lead p{margin:0;color:var(--mute)}
+.lead p{font-size:18px;color:var(--ink)}
+a:hover h2,a:hover h3{text-decoration:underline;text-decoration-color:var(--mark);text-decoration-thickness:3px}
+.note{grid-column:1/-1;background:var(--card);border:1px solid var(--line);padding:20px;border-radius:6px}
+code{background:var(--bg);padding:2px 6px;border-radius:4px}
+footer{max-width:1100px;margin:30px auto;padding:0 16px;color:var(--mute);font-size:14px}
+@media(max-width:760px){main{grid-template-columns:1fr}.lead{grid-row:auto}.stamp{margin-left:0}}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div class="brand"><i></i>Seithi</div>
+    <input class="search" id="q" type="search" placeholder="Search headlines" aria-label="Search headlines">
+    <div class="stamp" id="stamp">Loading news…</div>
+  </div>
+  <nav id="tabs" role="tablist" aria-label="News sections"></nav>
+</header>
+<main id="list"></main>
+<footer>Headlines and short summaries are gathered automatically every hour from public news feeds. Each story links to its original publisher, who owns the full article.</footer>
+<script>
+let DATA = null, current = "All";
+const $ = id => document.getElementById(id);
+
+function ago(iso){
+  if(!iso) return "";
+  const m = Math.max(1, Math.round((Date.now() - new Date(iso)) / 60000));
+  if(m < 60) return m + " min ago";
+  if(m < 1440) return Math.round(m / 60) + " h ago";
+  return Math.round(m / 1440) + " d ago";
+}
+function el(tag, cls, text){
+  const e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(text) e.textContent = text;
+  return e;
+}
+function card(it, isLead){
+  const a = el("a", isLead ? "lead" : "item");
+  a.href = it.link; a.target = "_blank"; a.rel = "noopener noreferrer";
+  a.append(el("div", "meta", [it.section, it.source, ago(it.time)].filter(Boolean).join(" · ")));
+  a.append(el(isLead ? "h2" : "h3", "", it.title));
+  if(it.summary && it.summary.toLowerCase() !== it.title.toLowerCase()) a.append(el("p", "", it.summary));
+  return a;
+}
+function render(){
+  const list = $("list"); list.replaceChildren();
+  if(!DATA) return;
+  const term = $("q").value.trim().toLowerCase();
+  let items = [];
+  for(const [name, arr] of Object.entries(DATA.sections))
+    if(current === "All" || current === name) arr.forEach(x => items.push({...x, section: name}));
+  if(current === "All"){ // mix sections: newest first
+    items.sort((a, b) => (b.time || "").localeCompare(a.time || ""));
+  }
+  if(term) items = items.filter(x => (x.title + " " + x.summary).toLowerCase().includes(term));
+  if(!items.length){ list.append(el("div", "note", "No stories match. Try another section or clear the search.")); return; }
+  items.forEach((it, i) => list.append(card(it, i === 0)));
+}
+function buildTabs(){
+  const tabs = $("tabs"); tabs.replaceChildren();
+  ["All", ...Object.keys(DATA.sections)].forEach(name => {
+    const b = el("button", "", name);
+    b.setAttribute("role", "tab"); b.setAttribute("aria-selected", name === current);
+    b.onclick = () => { current = name; buildTabs(); render(); };
+    tabs.append(b);
+  });
+}
+async function load(){
+  try{
+    const r = await fetch("news.json?t=" + Date.now());
+    if(!r.ok) throw new Error(r.status);
+    DATA = await r.json();
+    $("stamp").textContent = "Updated " + ago(DATA.updated);
+    buildTabs(); render();
+  }catch(err){
+    const n = el("div", "note");
+    n.append("News file not found yet. If you opened this page by double-clicking it, start a local server instead: ");
+    n.append(el("code", "", "python -m http.server"));
+    n.append(" then visit localhost:8000. Run ");
+    n.append(el("code", "", "python fetch_news.py"));
+    n.append(" once to create news.json.");
+    $("list").replaceChildren(n); $("stamp").textContent = "No data";
+  }
+}
+$("q").addEventListener("input", render);
+load();
+setInterval(load, 10 * 60 * 1000); // re-read news.json every 10 minutes
+</script>
+</body>
+</html>
