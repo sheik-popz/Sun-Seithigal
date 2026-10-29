@@ -1,4 +1,4 @@
-# TrendScope – Auto-Updating News Website
+# Trend-Scope – Auto-Updating News Website
 
 A mobile-friendly news website that brings the day's headlines from **Tamil Nadu, India and the world** in one place, along with cricket, football, Formula 1 and MotoGP. The news refreshes by itself on a schedule, so nobody has to update it by hand.
 
