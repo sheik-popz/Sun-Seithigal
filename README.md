@@ -2,7 +2,7 @@
 
 A mobile-friendly news website that brings the day's headlines from **Tamil Nadu, India and the world** in one place, along with cricket, football, Formula 1 and MotoGP. The news refreshes by itself on a schedule, so nobody has to update it by hand.
 
-**Live site:** https://sheik-popz.github.io/TrendScope/
+**Live site:** https://trend-scope-hazel.vercel.app/
 
 ## About the project
 
